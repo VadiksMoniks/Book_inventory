@@ -14,9 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    @if(session('admin'))
-        <script>window.location.href = "{{ route('adminPanel') }}";</script>
-    @endif
+
     <div class="w-[300px] mx-auto mt-10 h-[400px] rounded-xl shadow-xl p-10" x-data="{ login: '', password: '', errorMessage: '' }">
         <div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-[90px]">

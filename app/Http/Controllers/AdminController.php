@@ -101,13 +101,17 @@ class AdminController extends Controller
             'author' => ['required'],
             'publication_year' => ['required', 'integer'],
             'publisher' => ['required'],
-            'isbn' => ['required']
+            'isbn' => ['required', 'unique:books,isbn']
         ]);
 
         $pattern = '/^978-\d{1}-\d{4}-\d{4}-\d{1}+$/';
 
         if(!preg_match($pattern, $request->isbn)){
             return response()->json(['message' => 'Wrong ISBN code']);
+        }
+
+        if($request->publication_year < 0 || $request->publication_year > date('Y')){
+            return response()->json(['message' => 'Incorrect year']);
         }
 
         $book = Book::where('isbn', $request->isbn)->first();

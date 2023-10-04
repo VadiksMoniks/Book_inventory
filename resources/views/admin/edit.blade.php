@@ -14,9 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    @if(!session('admin'))
-        <script>window.location.href = "{{ route('logIn') }}";</script>
-    @endif
+
     <a href="{{route('adminPanel')}}" class=" ml-[50px] underline text-red-500">Back</a>
     <div class="flex justify-center h-[700px] mt-[120px]">
         <div class="bg-gray-200 p-4  w-[500px] shadow-xl ">
