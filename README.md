@@ -4,15 +4,14 @@ Requirements:
 - PHP(will be added on you'r PC with localserver)
 - MySQL(will be added on you'r PC with localserver)
 - Laravel
-- Node.js
+- Node js
 - TailwindCSS
+- Vue js
 
 - Download all files from this repository to you'r work directory(in XAMPP it's `htdocs`) on PC
-- Install Node.js 
-- Install TailwindCSS`
-- Create a database called 'book_inventory' in MySQL  via command "CREATE DATABASE 'book_inventory';"
+- Create a database called 'book_inventory' in your db(I used mySQL);"
 - via command line or terminal go to your directory where all the files are stored and run command 'php artisan migrate' this will add tables to your db
-- Add this data to table 'admins' login: root, password:$2y$10$HLKvcYrpCug.q.BloHSvx.cc1mzw22OBT0odurI4Njucp6vuxmZre
+- then run commands "php artisan db:seed --class=BookSeeder" and "php artisan db:seed --class=adminSeeder" to add some data to your tables
 - To enter admin panell enter admin's login - root and password - 7355608
 
 Now You can use all the features of this project
