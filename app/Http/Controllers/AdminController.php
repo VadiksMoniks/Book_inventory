@@ -25,10 +25,10 @@ class AdminController extends Controller
 
         if(Auth::guard('admin')->attempt(['login' => $request->login, 'password' => $request->password])){
             session(['admin'=> $request->login]);
-            return response()->json(['message' => 'success']);
+            return response()->json(['message' => 'success'], 200);
         }
         else{
-            return response()->json(['message' => 'wrong login or password']);
+            return response()->json(['message' => 'wrong login or password'], 422);
         }
 
     }
@@ -36,7 +36,7 @@ class AdminController extends Controller
     public function logout(){
         if(session('admin')){
             session()->forget('admin');
-            return redirect('/LogIn');
+            return redirect()->route('logIn');
         }
         else{
             return redirect('/');
@@ -61,22 +61,22 @@ class AdminController extends Controller
             'author' => ['required'],
             'publication_year' => ['required', 'integer'],
             'publisher' => ['required'],
-            'isbn' => ['required'],
-            'current_isbn' => ['required']
+            'oldIsbn' => ['required'],
+            'isbn' => ['required']
         ]);
 
         $pattern = '/^978-\d{1}-\d{4}-\d{4}-\d{1}+$/';
 
         if(!preg_match($pattern, $request->isbn)){
-            return response()->json(['message' => 'Wrong ISBN code']);
+            return response()->json(['message' => 'Wrong ISBN code'], 422);
         }
 
-        $bookInfo = Book::where('isbn', $request->current_isbn)->first();
+        $bookInfo = Book::where('isbn', $request->oldIsbn)->first();
         
         if($bookInfo!==null){
 
             $publicationYear = intval($request->input('publication_year'));
-            $updatedData = Book::where('isbn', $request->current_isbn)->update([
+            $updatedData = Book::where('isbn', $request->oldIsbn)->update([
                 'title' => $request->title,
                 'author' => $request->author,
                 'publication_year' => $publicationYear,
@@ -84,10 +84,10 @@ class AdminController extends Controller
                 'isbn' => $request->isbn
             ]);
 
-            return response()->json(['message' => 'Data was successfully updated']);
+            return response()->json(['message' => 'Data was successfully updated'], 200);
         }
         else{
-            return response()->json(['message' => 'Book not found']);
+            return response()->json(['message' => 'Book not found'], 422);
         }
     }
 
@@ -107,17 +107,17 @@ class AdminController extends Controller
         $pattern = '/^978-\d{1}-\d{4}-\d{4}-\d{1}+$/';
 
         if(!preg_match($pattern, $request->isbn)){
-            return response()->json(['message' => 'Wrong ISBN code']);
+            return response()->json(['message' => 'Wrong ISBN code'], 422);
         }
 
         if($request->publication_year < 0 || $request->publication_year > date('Y')){
-            return response()->json(['message' => 'Incorrect year']);
+            return response()->json(['message' => 'Incorrect year'], 422);
         }
 
         $book = Book::where('isbn', $request->isbn)->first();
 
         if($book!==null){
-            return response()->json(['message' => 'Such book allready exists']);
+            return response()->json(['message' => 'Such book allready exists'], 422);
         }
         else{
             $publicationYear = intval($request->input('publication_year'));
@@ -131,14 +131,14 @@ class AdminController extends Controller
 
             $newBook->save();
 
-            return response()->json(['message' => 'Book was successfully added']);
+            return response()->json(['message' => 'Book was successfully added'], 200);
         }
     }
 
     public function destroy($isbn){
         Book::where('isbn', $isbn)->delete();
-        $newList = Book::all();
-        return response()->json(['message'=> 'Book deleted successfully', 'list' => $newList]);
+        //$newList = Book::all();
+        return response()->json(['message'=> 'Book deleted successfully'], 200);
     }
 
     public function filter($filterType){
@@ -148,7 +148,7 @@ class AdminController extends Controller
             return response()->json(['list' => $filteredList]);
         }
         else{
-            return response()->json(['message' => 'Something went wrong']);
+            return response()->json(['message' => 'Something went wrong'], 422);
         }
     }
 }

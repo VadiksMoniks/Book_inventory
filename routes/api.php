@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookInventoryController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/books', [BookInventoryController::class, 'index'])->name('api/books');
+
+Route::post('/books/store', [AdminController::class, 'store'])->name('store');
+Route::put('/books/update', [AdminController::class, 'update'])->name('update');
+Route::delete('/books/{isbn}/delete', [AdminController::class, 'destroy'])->name('destroy');

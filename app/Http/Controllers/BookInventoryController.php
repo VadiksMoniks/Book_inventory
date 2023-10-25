@@ -9,6 +9,6 @@ class BookInventoryController extends Controller
 {
     public function index(){
         $data = Book::orderBy('title')->get();
-        return view('index', ['book_list' => $data]);
+        return response()->json(['books' => $data]);
     }
 }

@@ -16,8 +16,8 @@ class sessionExistanceCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(($request->route()->getName() === 'userLogIn' || $request->route()->getName() === 'userSignIn') && session()->has('user')){
-            return redirect(route('account'));
+        if( $request->route()->getName() === 'logIn' && session()->has('admin') ){
+            return redirect(route('adminPanel'));
         }
         return $next($request);
     }
