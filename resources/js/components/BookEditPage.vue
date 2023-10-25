@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      errorMessage: '', // Инициализация errorMessage
+      errorMessage: '',
     };
   },
   components: {
@@ -36,7 +36,7 @@ export default {
             if (error.response && error.response.status === 422) {
                 this.errorMessage = error.response.data.message;
             } //else {
-              //  this.errorMessage = 'Неизвестная ошибка';
+              //  this.errorMessage = 'Unknown Error';
            // }
         });
     }

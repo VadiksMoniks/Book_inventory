@@ -51,7 +51,7 @@ export default {
             .get('http://localhost/Book_inventory/public/api/books')
             .then(response => {this.booksData = response.data.books})
             .catch(error => {
-            console.log('Ошибка при загрузке данных книг:', error);
+            console.log('Error: ', error);
         });
     },
 
@@ -62,7 +62,7 @@ export default {
           this.getBooks();
         })
             .catch(error => {
-            alert('Ошибка при загрузке данных книг:', error);
+            alert('Error: ', error);
             });
     },
     

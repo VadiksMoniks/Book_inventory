@@ -137,7 +137,7 @@ class AdminController extends Controller
 
     public function destroy($isbn){
         Book::where('isbn', $isbn)->delete();
-        //$newList = Book::all();
+
         return response()->json(['message'=> 'Book deleted successfully'], 200);
     }
 
