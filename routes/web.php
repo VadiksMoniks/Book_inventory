@@ -14,22 +14,16 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-//Route::get('/index', [BookInventoryController::class, 'index'])->name('index');
-//Route::redirect('/', 'http://localhost/Book_inventory/laravel/public/index');
 Route::view('/', 'index');
 
 Route::group(['prefix' => 'adminPanel'], function(){
 
-    //Route::get('/', [AdminController::class, 'index'])->name('adminPanel')->middleware('admin.auth');
     Route::view('/', 'index')->middleware('admin.auth')->name('adminPanel');
-    Route::view('/LogIn', 'index')->middleware('session.existance.check')->name('logIn'); //[AdminController::class, 'LogIn'])->name('logIn')->middleware('session.existance.check');
+    Route::view('/LogIn', 'index')->middleware('session.existance.check')->name('logIn'); 
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout')->middleware('admin.auth');
-    Route::view('/add', 'index')->middleware('admin.auth')->name('add');//Route::get('/add', [AdminController::class, 'addBook'])->name('add');
+    Route::view('/add', 'index')->middleware('admin.auth')->name('add');
     Route::view('/{isbn}/edit', 'index')->middleware('admin.auth')->name('edit');
     Route::get('/{filterType}/filter', [AdminController::class, 'filter'])->name('filter')->middleware('admin.auth');
 
     Route::post('/auth', [AdminController::class, 'auth'])->name('auth');
-    //Route::post('/books/store', [AdminController::class, 'store'])->name('store');
-    //Route::put('/books/update', [AdminController::class, 'update'])->name('update');
-    //Route::delete('/books/{isbn}', [AdminController::class, 'destroy'])->name('destroy');
 });
