@@ -8,7 +8,7 @@ Requirements:
 - TailwindCSS
 - Vue js
 
-- Download all files from this repository to you'r work directory(in XAMPP it's `htdocs`) on PC
+- Download all files from this repository to you'r work directory(I'm using XAMPP so for me it's `htdocs`) on PC via command 'git clone'
 - Create a database called 'book_inventory' in your db(I used mySQL);"
 - via command line or terminal go to your directory where all the files are stored and run command 'php artisan migrate' this will add tables to your db
 - then run commands "php artisan db:seed --class=BookSeeder" and "php artisan db:seed --class=adminSeeder" to add some data to your tables
